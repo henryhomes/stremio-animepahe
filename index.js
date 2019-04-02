@@ -12,7 +12,7 @@ const manifest = {
     name: 'AnimePahe',
     description: 'Anime from AnimePahe',
     resources: ['catalog', 'meta', 'stream'],
-    types: ['series'],
+    types: ['series', 'movie'],
     idPrefixes: ['kitsu:'],
     catalogs: [
       {
@@ -184,7 +184,7 @@ addon.defineStreamHandler(args => {
       }
       const idParts = id.split(':')
       const kitsuId = 'kitsu:' + idParts[1]
-      const episode = idParts[idParts.length -1] || null
+      const episode = idParts.length > 2 ? idParts[idParts.length -1] : 1
       db.map.get(kitsuId, apId => {
         if (apId) {
           findEpisode(apId, episode, null, epId => {
